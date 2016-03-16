@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.basicphonegap" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Basic PhoneGap</name>
+<widget id="com.phonegap.DownloadTest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>DownloadTest</name>
     <description>
-        Simple company info application
+        DownloadTest
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        Stefano Ricci
+    <author>
+        DownloadTest Team
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
@@ -23,26 +23,26 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
-
-    <gap:plugin name="org.apache.cordova.battery-status" source="npm"/>
-    <gap:plugin name="org.apache.cordova.camera" source="npm"/>
-    <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
-    <gap:plugin name="org.apache.cordova.console" source="npm"/>
-    <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
-    <gap:plugin name="org.apache.cordova.device" source="npm"/>
-    <gap:plugin name="org.apache.cordova.device-motion" source="npm"/>
-    <gap:plugin name="org.apache.cordova.device-orientation" source="npm"/>
-    <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
-    <gap:plugin name="org.apache.cordova.file" source="npm"/>
-    <gap:plugin name="org.apache.cordova.file-transfer" source="npm"/>
-    <gap:plugin name="org.apache.cordova.geolocation" source="npm"/>
-    <gap:plugin name="org.apache.cordova.globalization" source="npm"/>
-    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/>
-    <gap:plugin name="org.apache.cordova.media" source="npm"/>
-    <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
-    <gap:plugin name="org.apache.cordova.splashscreen" source="npm"/>
-    <gap:plugin name="org.apache.cordova.vibration" source="npm"/>
-
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    
+    <gap:plugin name="org.apache.cordova.battery-status" source="npm" />
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.media-capture" source="npm" />
+    <gap:plugin name="org.apache.cordova.console" source="npm" />
+    <gap:plugin name="org.apache.cordova.contacts" source="npm" />
+    <gap:plugin name="org.apache.cordova.device" source="npm" />
+    <gap:plugin name="org.apache.cordova.device-motion" source="npm" />
+    <gap:plugin name="org.apache.cordova.device-orientation" source="npm" />
+    <gap:plugin name="org.apache.cordova.dialogs" source="npm" />
+    <gap:plugin name="org.apache.cordova.file" source="npm" />
+    <gap:plugin name="org.apache.cordova.file-transfer" source="npm" />
+    <gap:plugin name="org.apache.cordova.geolocation" source="npm" />
+    <gap:plugin name="org.apache.cordova.globalization" source="npm" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm" />
+    <gap:plugin name="org.apache.cordova.media" source="npm" />
+    <gap:plugin name="org.apache.cordova.network-information" source="npm" />
+    <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
+    <gap:plugin name="org.apache.cordova.vibration" source="npm" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -68,7 +68,7 @@
     <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/screen-ipad-portrait.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
-    <access origin="*" />
+    <access origin=".*" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -83,6 +83,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-
     <engine name="android" spec="~4.1.1" />
 </widget>

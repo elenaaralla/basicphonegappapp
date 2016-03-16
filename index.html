@@ -9,80 +9,33 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.css" />
-        <title>Foobar web design</title>
-    </head>
-    <body>
-        <div class="app">
 
-            <div data-role="page" id="home">
-                <header data-role="header">
-                    <h1>FooBar Web Design</h1>
-                </header>
-
-                <div data-role="content">
-                    <nav data-role="navbar">
-                        <ul>
-                            <li><a href="#home" class="ui-btn-active">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </nav>
-                    <p id='deviceInfo'>Loading device properties...</p>
-                    This is the content
-                </div>
-
-                <footer data-role="footer">
-                    <h3>Copyright &copy; 2015
-                </footer>
-            </div>
-
-            <div data-role="page" id="about">
-                <header data-role="header">
-                    <h1>About FooBar</h1>
-                </header>
-
-                <div data-role="content">
-                    <nav data-role="navbar">
-                        <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about" class="ui-btn-active">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </nav>
-
-                    This is the about content (yeahhh!!)
-                </div>
-
-                <footer data-role="footer">
-                    <h3>Copyright &copy; 2015
-                </footer>
-            </div>       
-
-            <div data-role="page" id="contact">
-                <header data-role="header">
-                    <h1>Contact FooBar</h1>
-                </header>
-
-                <div data-role="content">
-                    <nav data-role="navbar">
-                        <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
-                        </ul>
-                    </nav>
-
-                    This is the contact content
-                </div>
-
-                <footer data-role="footer">
-                    <h3>Copyright &copy; 2015
-                </footer>
-            </div>                  
-        </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript" src="http://cloudfront.loggly.com/js/loggly.tracker-2.0.min.js"></script>
+        <script type="text/javascript" src="js/debug.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>    
+
+
+        <title>DownloadTest</title>
+    </head>
+    <body>
+        <div data-role="page" id="home">
+            <header data-role="header">
+                <h1>DownloadTest</h1>
+            </header>
+
+            <div data-role="content">
+                File transfer test application
+                <p id='deviceInfo'>Loading device properties...</p>        
+                <div id="result"></div>    
+            </div>
+
+            <footer data-role="footer">
+                <h3>Copyright &copy; 2015
+            </footer>
+        </div>
     </body>
 </html>
