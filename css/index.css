@@ -1,0 +1,9 @@
+#dot {
+	border-radius: 14px;
+	width: 25px;
+	height: 25px;
+	background: #ff0000;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}

@@ -2,6 +2,9 @@
 // reference to the current 'watchAcceleration'
 var watchID = null;
 
+// The radius for our circle object
+var radius = 50;
+
 // Device Event Listener
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -37,7 +40,7 @@ function onDeviceReady() {
 function startWatch() {
   // Set the frequency of updates
   // from the acceleration
-  var options = { frequency: 1000 };
+  var options = { frequency: 100 };
   // Set attributes for control buttons
   $("#startBtn").prop( "disabled", true );
   $("#stopBtn").prop( "disabled", false );
@@ -62,10 +65,49 @@ function stopWatch() {
 }
 
 function onSuccess(acceleration) {
+   
+
+	// Initial X Y positions
+	var x = 0;
+	var y = 0;
+
+	// Velocity / Speed
+	var vx = 0;
+	var vy = 0;
+
+	// Acceleration
+	var accelX = 0;
+	var accelY = 0;
+
+	// Multiplier to create proper pixel measurements
+	var vMultiplier = 100;
+
+	accelX = acceleration.x;
+	accelY = acceleration.y;
+	   
+	vy = vy + -(accelY);
+	vx = vx + accelX;
+	   
+	y = parseInt(y + vy * vMultiplier);
+	x = parseInt(x + vx * vMultiplier);
+
+	if (x<0) { x = 0; vx = 0; }
+	if (y<0) { y = 0; vy = 0; }
+	if (x>document.documentElement.clientWidth-radius) {
+		x = document.documentElement.clientWidth-radius; vx = 0;
+	}
+	if (y>document.documentElement.clientHeight-radius) {
+		y = document.documentElement.clientHeight-radius; vy = 0;
+	}
+
+	$("#dot").css("top", y + "px").css("left", x + "px");
+
     var acclerationValue = "Acceleration X: " + acceleration.x +
-          "<br />Acceleration Y: " + acceleration.y +
-          "<br />Acceleration Z: " + acceleration.z +
-          "<br />Timestamp: "      + acceleration.timestamp;
+		"<br />Acceleration Y: " + acceleration.y +
+		"<br />Acceleration Z: " + acceleration.z +
+		"<br />Timestamp: "      + acceleration.timestamp +   
+		"<br />Move Top: "    + y + 
+		"px <br />Move Left: "    + x + "px";
 
 	$("#accelerometerData").html(acclerationValue);
 }
