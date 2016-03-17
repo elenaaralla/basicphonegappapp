@@ -5,6 +5,9 @@ var watchID = null;
 // The radius for our circle object
 var radius = 50;
 
+var accelerometerHeader = "";
+var geolocationHeader = "";
+
 // Device Event Listener
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -14,25 +17,48 @@ var debug = new DebugLog();
 
 function onDeviceReady() {
 	
-	$("#deviceInfo").html("Device info:<br />Device Cordova:"+device.cordova+"<br />Device Platform:"+device.platform+"<br />Device UUID:"+device.uuid+"<br />Device Version:"+device.version);     
+	$("#deviceInfo").html("<strong>Device info</strong>:<br />Cordova:" + 
+	device.cordova+"<br />Platform:"+device.platform+"<br />UUID:"+device.uuid+
+	"<br />Version:"+device.version);     
 
 	$("#startBtn").prop( "disabled", true);
 	$("#stopBtn").prop( "disabled", true);
 
 	var acceler = navigator.accelerometer || null;
 
+	accelerometerHeader = "<br /><br /><strong>Accelerometer</strong>:";
+
 	if(acceler != null)
 	{
   		$("#startBtn").on("tap", startWatch );
   		$("#stopBtn").on("tap", stopWatch );	
+  		$("#startBtn").show();
+  		$("#stopBtn").show();
 		startWatch();
 		//acceler.getCurrentAcceleration(onSuccess, onError);
 	}
 	else
 	{
-		$("#accelerometerData").html("No accelerometer!");
+  		$("#startBtn").hide();
+  		$("#stopBtn").hide();		
+		$("#accelerometerData").html(accelerometerHeader + "<br />No accelerometer!");
 		console.log("No accelerometer!");
 	}
+
+	var geoloc = navigator.geolocation || null;
+
+	geolocationHeader = "<br /><br /><strong>Geolocation</strong>:";
+
+	if(geoloc != null)
+	{
+		geoloc.getCurrentPosition(onSuccessGeo, onErrorGeo);
+	}
+	else
+	{
+		$("#geolocationData").html(geolocationHeader+ "<br />No geolocation!");
+		console.log("No geolocation!");
+	}
+
 }
 
 // Watch the acceleration at regular
@@ -56,7 +82,7 @@ function stopWatch() {
     navigator.accelerometer.clearWatch(watchID);
     watchID = null;
      
-      $("#accelerometerData").html('No longer watching your acceleration.');
+      $("#accelerometerData").html(accelerometerHeader+'<br />No longer watching your acceleration.');
      
 	// Set attributes for control buttons
 	$("#startBtn").prop( "disabled", false );
@@ -65,8 +91,6 @@ function stopWatch() {
 }
 
 function onSuccess(acceleration) {
-   
-
 	// Initial X Y positions
 	var x = 0;
 	var y = 0;
@@ -102,17 +126,71 @@ function onSuccess(acceleration) {
 
 	$("#dot").css("top", y + "px").css("left", x + "px");
 
-    var acclerationValue = "Acceleration X: " + acceleration.x +
+    var acclerationValue = "<br />Acceleration X: " + acceleration.x +
 		"<br />Acceleration Y: " + acceleration.y +
 		"<br />Acceleration Z: " + acceleration.z +
 		"<br />Timestamp: "      + acceleration.timestamp +   
 		"<br />Move Top: "    + y + 
 		"px <br />Move Left: "    + x + "px";
 
-	$("#accelerometerData").html(acclerationValue);
+	$("#accelerometerData").html(accelerometerHeader+acclerationValue);
 }
 
 function onError(error) {
-    $("#accelerometerData").html('Sorry, I was unable to access the acceleration data.<br />' + error);
+    $("#accelerometerData").html(accelerometerHeader+'<br />Sorry, I was unable to access the acceleration data.<br />' + error);
 }
 
+// Run after successful transaction
+// Let's display the position data
+function onSuccessGeo(position) {
+  $("#geolocationData").html(geolocationHeader + "<br />Latitude: "  + position.coords.latitude +
+      "<br />Longitude: " + position.coords.longitude + 
+      "<br />Altitude: "  + position.coords.altitude + 
+      "<br />Accuracy: "  + position.coords.accuracy +
+      "<br />Altitude Accuracy: " + position.coords.altitudeAccuracy  +
+      "<br />Heading: " + position.coords.heading  +
+      "<br />Speed: "   + position.coords.speed  +
+      "<br />Timestamp: " + position.timestamp);
+}
+
+
+// Run if we face an error
+// obtaining the position data
+function onErrorGeo(error) {
+       
+  var errString = "";
+       
+  // Check to see if we have received an error code  
+  if(error.code) {
+    // If we have, handle it by case
+    switch(error.code)
+    {
+      case 1: // PERMISSION_DENIED
+      errString =
+          'Unable to obtain the location information ' +
+          'because the device does not have permission '+
+          'to the use that service.';
+      break;
+      case 2: // POSITION_UNAVAILABLE
+        errString =
+          'Unable to obtain the location information ' +
+          'because the device location could not ' +
+          'be determined.';
+      break;
+      case 3: // TIMEOUT
+        errString =
+          'Unable to obtain the location within the ' +
+          'specified time allocation.';
+      break;
+      default: // UNKOWN_ERROR
+        errString =
+          'Unable to obtain the location of the ' +
+          'device due to an unknown error.';
+      break;
+    }
+       
+  }
+       
+  // Handle any errors we may face
+  $("#geolocationData").html(geolocationHeader + "<br />" + errString);
+}
