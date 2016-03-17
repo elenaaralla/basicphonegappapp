@@ -19,18 +19,20 @@
         <script type="text/javascript" src="js/index.js"></script>    
 
 
-        <title>DownloadTest</title>
+        <title>Accelerometer Data</title>
     </head>
     <body>
         <div data-role="page" id="home">
             <header data-role="header">
-                <h1>DownloadTest</h1>
+                <h1>Accelerometer Data</h1>
             </header>
 
+
             <div data-role="content">
-                File transfer test application
-                <p id='deviceInfo'>Loading device properties...</p>        
-                <div id="result"></div>    
+                <div id="deviceInfo">Device info:</div>
+                <button id="startBtn">start</button>
+                <button id="stopBtn">stop</button>
+                <div id="accelerometerData">Obtaining data...</div>        
             </div>
 
             <footer data-role="footer">
