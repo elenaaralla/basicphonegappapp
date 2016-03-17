@@ -37,7 +37,7 @@ function onDeviceReady() {
 function startWatch() {
   // Set the frequency of updates
   // from the acceleration
-  var options = { frequency: 3000 };
+  var options = { frequency: 1000 };
   // Set attributes for control buttons
   $("#startBtn").prop( "disabled", true );
   $("#stopBtn").prop( "disabled", false );
