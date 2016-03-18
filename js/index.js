@@ -204,7 +204,6 @@ function getAllContacts() {
 	var fields = ["name", "phoneNumbers", "birthday", "emails"];
 	if(navigator.contacts)
 	{
-		alert("ok");
 		$("#contacts").show();
 		navigator.contacts.find(fields, onAllSuccess, onErrorContact, options);
 	}
@@ -212,7 +211,6 @@ function getAllContacts() {
 	{
 		$("#contacts").hide();
 		console.log("No contacts");
-		alert("No contacts");
 	}
 }
 
@@ -222,12 +220,16 @@ var arrContactDetails = new Array();
 function onAllSuccess(contacts) {
 	if(contacts.length) {
 		alert("contacts.length: " + contacts.length);
-		for(var i=0; i<contacts.length; ++i){
+		for(var i=0; i<contacts.length; i++){
+			alert("contacts name: [" + contacts[i].name + ']');
 			if(contacts[i].name){
+				
 				arrContactDetails.push(contacts[i]);
 			}
 		}
 	
+		alert("arrContactDetails.length: " + arrContactDetails.length);
+
 		arrContactDetails.sort(alphabeticalSort);
 	// more code to go here
 	} else {
@@ -255,7 +257,7 @@ if(arrContactDetails.length > 0)
 	arrContactDetails[0].name.formatted[0];
 }
 
-for(var i=0; i<arrContactDetails.length; ++i) {
+for(var i=0; i<arrContactDetails.length; i++) {
 	var contactObject = arrContactDetails[i];
 	
 	if( alphaHeader != contactObject.name.formatted[0] ) {
