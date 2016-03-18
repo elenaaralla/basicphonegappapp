@@ -59,6 +59,7 @@ function onDeviceReady() {
 		console.log("No geolocation!");
 	}
 
+	getAllContacts();
 }
 
 // Watch the acceleration at regular
@@ -193,4 +194,80 @@ function onErrorGeo(error) {
        
   // Handle any errors we may face
   $("#geolocationData").html(geolocationHeader + "<br />" + errString);
+}
+
+
+function getAllContacts() {
+	var options = new ContactFindOptions();
+	options.filter = "";
+	options.multiple = true;
+	var fields = ["name", "phoneNumbers", "birthday", "emails"];
+	if(navigator.contacts)
+	{
+		$("#contacts").show();
+		navigator.contacts.find(fields, onAllSuccess, onErrorContact, options);
+	}
+	else
+	{
+		$("#contacts").hide();
+		console.log("No contacts");
+	}
+}
+
+
+var arrContactDetails = new Array();
+
+function onAllSuccess(contacts) {
+	if(contacts.length) {
+		
+		for(var i=0; i<contacts.length; ++i){
+			if(contacts[i].name){
+				arrContactDetails.push(contacts[i]);
+			}
+		}
+	
+		arrContactDetails.sort(alphabeticalSort);
+	// more code to go here
+	} else {
+		$('#contactList').append('<li><h3>Sorry, no contacts were found</h3></li>');
+	} 
+	
+	$('#contactList').listview("refresh");
+}
+
+function alphabeticalSort(a, b) {
+	if (a.name.formatted < b.name.formatted){
+		return -1;
+	}else if (a.name.formatted > b.name.formatted){
+		return  1;
+	}else{
+		return 0;
+	}
+}    
+
+var alphaHeader = "";
+
+if(arrContactDetails.length > 0)
+{
+	arrContactDetails[0].name.formatted[0];
+}
+
+for(var i=0; i<arrContactDetails.length; ++i) {
+	var contactObject = arrContactDetails[i];
+	
+	if( alphaHeader != contactObject.name.formatted[0] ) {
+		alphaHeader = contactObject.name.formatted[0];
+		$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
+		$('#contactList').append('<li class="contact_list_item" id="' + contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' +contactObject.id + ')</a></li>');
+	} else {
+		if( i == 0 ) {
+			$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
+		}
+		
+		$('#contactList').append('<li class="contact_list_item" id="'+ contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' + contactObject.id + ')</a></li>');
+	}              
+}
+
+function onErrorContact(error) {
+	alert('An error has occurred: ' + error.code);
 }
