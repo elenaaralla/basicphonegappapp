@@ -221,7 +221,6 @@ function onAllSuccess(contacts) {
 	if(contacts.length) {
 		alert("contacts.length: " + contacts.length);
 		for(var i=0; i<contacts.length; i++){
-			alert("contacts name: [" + contacts[i].name + ']');
 			if(contacts[i].name){
 				
 				arrContactDetails.push(contacts[i]);
@@ -237,6 +236,30 @@ function onAllSuccess(contacts) {
 	} 
 	
 	$('#contactList').listview("refresh");
+
+	var alphaHeader = "";
+
+	if(arrContactDetails.length > 0)
+	{
+		alert("arrContactDetails.length:" + arrContactDetails.length);
+		arrContactDetails[0].name.formatted[0];
+	}
+
+	for(var i=0; i<arrContactDetails.length; i++) {
+		var contactObject = arrContactDetails[i];
+		
+		if( alphaHeader != contactObject.name.formatted[0] ) {
+			alphaHeader = contactObject.name.formatted[0];
+			$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
+			$('#contactList').append('<li class="contact_list_item" id="' + contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' +contactObject.id + ')</a></li>');
+		} else {
+			if( i == 0 ) {
+				$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
+			}
+			
+			$('#contactList').append('<li class="contact_list_item" id="'+ contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' + contactObject.id + ')</a></li>');
+		}              
+	}
 }
 
 function alphabeticalSort(a, b) {
@@ -248,30 +271,6 @@ function alphabeticalSort(a, b) {
 		return 0;
 	}
 }    
-
-var alphaHeader = "";
-
-if(arrContactDetails.length > 0)
-{
-	alert("arrContactDetails.length:" + arrContactDetails.length);
-	arrContactDetails[0].name.formatted[0];
-}
-
-for(var i=0; i<arrContactDetails.length; i++) {
-	var contactObject = arrContactDetails[i];
-	
-	if( alphaHeader != contactObject.name.formatted[0] ) {
-		alphaHeader = contactObject.name.formatted[0];
-		$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
-		$('#contactList').append('<li class="contact_list_item" id="' + contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' +contactObject.id + ')</a></li>');
-	} else {
-		if( i == 0 ) {
-			$('#contactList').append('<li data-role="list-divider">'+ alphaHeader + '</li>');
-		}
-		
-		$('#contactList').append('<li class="contact_list_item" id="'+ contactObject.id + '"><a href="#contact-info">' + contactObject.name.formatted + ' (' + contactObject.id + ')</a></li>');
-	}              
-}
 
 function onErrorContact(error) {
 	alert('An error has occurred: ' + error.code);
