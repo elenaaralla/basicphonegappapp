@@ -235,8 +235,6 @@ function onAllSuccess(contacts) {
 		$('#contactList').append('<li><h3>Sorry, no contacts were found</h3></li>');
 	} 
 	
-	$('#contactList').listview("refresh");
-
 	var alphaHeader = "";
 
 	if(arrContactDetails.length > 0)
